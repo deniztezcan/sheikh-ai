@@ -42,7 +42,7 @@ class Engine
 
     private function stringsByRelatedness(
         string $string,
-        int $top = 100
+        int $top = 200
     ) {
         $response = $this->open_ai->embeddings([
             'model' => 'text-embedding-ada-002',
