@@ -13,5 +13,6 @@ class Ayah extends Model
         'surah_id',
         'number',
         'content',
+        'embedding',
     ];
 }

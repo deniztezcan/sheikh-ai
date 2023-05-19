@@ -3,9 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Ayah;
-use Faker\Core\File;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File as FacadesFile;
 use Orhanerday\OpenAi\OpenAi;
 
 class DetermineEmbeddings extends Command
@@ -31,9 +29,9 @@ class DetermineEmbeddings extends Command
     {
         $openai = new OpenAi(env('OPENAI_API_KEY'));
 
-        foreach (Ayah::all() as $ayah) {
+        foreach (Ayah::where('embedding', '')->get() as $ayah) {
             $response = $openai->embeddings([
-                'model' => "text-embedding-ada-002",
+                'model' => 'text-embedding-ada-002',
                 'input' => $ayah->content,
             ]);
             $response = json_decode($response, true);
