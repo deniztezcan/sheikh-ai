@@ -34,7 +34,7 @@ class Engine
         $response,
         $obj
     ) {
-        $relatedness = Distance::consine($response['data'][0]['embedding'], $obj['embedding']);
+        $relatedness = Distance::consine($response['data'][0]['embedding'], json_decode($obj['embedding'], true));
 
         return [$obj['text'], $relatedness];
     }
@@ -48,14 +48,15 @@ class Engine
             'model' => $model,
             'input' => $string,
         ]);
+        $response = json_decode($response, true);
 
         $strings_and_relatednesses = [];
         foreach (Ayah::all() as $i => $row) {
             $strings_and_relatednesses[] = $this->lookForRelatedNess($response, $row);
         }
-        foreach (Hadith::all() as $i => $row) {
-            $strings_and_relatednesses[] = $this->lookForRelatedNess($response, $row);
-        }
+        // foreach (Hadith::all() as $i => $row) {
+        //     $strings_and_relatednesses[] = $this->lookForRelatedNess($response, $row);
+        // }
 
         usort($strings_and_relatednesses, function ($a, $b) {
             return $b[1] <=> $a[1];
