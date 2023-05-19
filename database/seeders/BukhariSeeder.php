@@ -20,11 +20,11 @@ class BukhariSeeder extends Seeder
             foreach ($volume['books'] as $book) {
                 foreach ($book['hadiths'] as $single) {
                     Hadith::create([
-                        'collection' => "bukhari",
+                        'collection' => 'bukhari',
                         'volume' => preg_replace('/[^0-9]/', '', $volume['name']),
                         'book' => preg_replace('/[^0-9]/', '', $book['name']),
                         'number' => preg_replace('/[^0-9]/', '', explode('Number', $single['info'])[1]),
-                        'content' => $single['text']
+                        'content' => $single['text'],
                     ]);
                 }
             }
